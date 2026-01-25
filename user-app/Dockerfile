@@ -9,6 +9,13 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Copy public directory
+COPY public ./public
+
+# Copy source code
+COPY src ./src
+COPY tailwind.config.js postcss.config.js ./
+
 # Build the application
 ENV REACT_APP_API_URL=http://3.110.33.131:5000/api
 RUN npm run build
