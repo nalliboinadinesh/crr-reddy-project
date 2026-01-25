@@ -109,10 +109,9 @@ process.on('SIGTERM', () => {
   logger.info('SIGTERM received, shutting down gracefully');
   server.close(() => {
     logger.info('Server closed');
-    mongoose.connection.close(false, () => {
-      logger.info('MongoDB connection closed');
-      process.exit(0);
-    });
+    mongoose.connection.close();
+    logger.info('MongoDB connection closed');
+    process.exit(0);
   });
 });
 

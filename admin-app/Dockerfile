@@ -17,7 +17,7 @@ COPY src ./src
 COPY tailwind.config.js postcss.config.js ./
 
 # Build the application
-ENV REACT_APP_API_URL=http://3.110.33.131:5000/api
+ENV REACT_APP_API_URL=http://13.233.148.165:5000/api
 RUN npm run build
 
 # Production stage - Nginx

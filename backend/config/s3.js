@@ -1,11 +1,14 @@
-const AWS = require('aws-sdk');
+const { S3Client, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
+const { Upload } = require('@aws-sdk/lib-storage');
 const logger = require('./logger');
 
 // Configure AWS S3
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION || 'us-east-1'
+const s3 = new S3Client({
+  region: process.env.AWS_REGION || 'us-east-1',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  }
 });
 
 const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
@@ -17,17 +20,21 @@ const uploadFileToS3 = async (fileBuffer, fileName, mimeType) => {
       throw new Error('AWS_BUCKET_NAME not configured');
     }
 
-    const params = {
-      Bucket: BUCKET_NAME,
-      Key: `files/${Date.now()}-${fileName}`,
-      Body: fileBuffer,
-      ContentType: mimeType,
-      ACL: 'public-read' // Make files publicly readable
-    };
+    const upload = new Upload({
+      client: s3,
+      params: {
+        Bucket: BUCKET_NAME,
+        Key: `files/${Date.now()}-${fileName}`,
+        Body: fileBuffer,
+        ContentType: mimeType,
+        ACL: 'public-read'
+      }
+    });
 
-    const result = await s3.upload(params).promise();
-    logger.info(`File uploaded to S3: ${result.Location}`);
-    return result.Location;
+    const result = await upload.done();
+    const location = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${result.Key}`;
+    logger.info(`File uploaded to S3: ${location}`);
+    return location;
   } catch (error) {
     logger.error('Error uploading to S3:', error);
     throw error;
@@ -46,17 +53,21 @@ const uploadImageToS3 = async (file, keyPath) => {
     const mimeType = file.mimetype || 'application/octet-stream';
     const fileName = file.originalname || 'upload';
 
-    const params = {
-      Bucket: BUCKET_NAME,
-      Key: keyPath || `banners/${Date.now()}-${fileName}`,
-      Body: fileBuffer,
-      ContentType: mimeType,
-      ACL: 'public-read'
-    };
+    const upload = new Upload({
+      client: s3,
+      params: {
+        Bucket: BUCKET_NAME,
+        Key: keyPath || `banners/${Date.now()}-${fileName}`,
+        Body: fileBuffer,
+        ContentType: mimeType,
+        ACL: 'public-read'
+      }
+    });
 
-    const result = await s3.upload(params).promise();
-    logger.info(`Image uploaded to S3: ${result.Location}`);
-    return result.Location;
+    const result = await upload.done();
+    const location = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${result.Key}`;
+    logger.info(`Image uploaded to S3: ${location}`);
+    return location;
   } catch (error) {
     logger.error('Error uploading image to S3:', error);
     throw error;
@@ -74,12 +85,12 @@ const deleteFileFromS3 = async (fileUrl) => {
     const urlParts = fileUrl.split('/');
     const key = urlParts.slice(-2).join('/');
 
-    const params = {
+    const command = new DeleteObjectCommand({
       Bucket: BUCKET_NAME,
       Key: key
-    };
+    });
 
-    await s3.deleteObject(params).promise();
+    await s3.send(command);
     logger.info(`File deleted from S3: ${fileUrl}`);
   } catch (error) {
     logger.error('Error deleting from S3:', error);

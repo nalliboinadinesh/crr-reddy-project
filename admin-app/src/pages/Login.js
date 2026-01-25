@@ -6,8 +6,9 @@ import { authAPI } from '../services/api';
 import { FiLogIn } from 'react-icons/fi';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // Hardcoded test credentials - auto-fill on page load
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('admin123');
   const [error, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -39,6 +40,9 @@ const Login = () => {
   };
 
   // Demo credentials for testing
+  // Username: admin
+  // Password: admin123
+  // These are pre-filled for quick testing
   const fillDemoCredentials = () => {
     setUsername('admin');
     setPassword('admin123');
