@@ -5,6 +5,8 @@ import './StudentModal.css';
 
 const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = [] }) => {
   const [activeTab, setActiveTab] = useState('personal');
+  const [availableRegulations, setAvailableRegulations] = useState([]);
+  
   const [formData, setFormData] = useState({
     // Personal Info
     pin: '',
@@ -37,6 +39,21 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
   const [semesterSubjects, setSemesterSubjects] = useState({
     1: [{ subject: '', marks: '', grade: '' }]
   });
+
+  // Update regulations when branch changes
+  useEffect(() => {
+    if (formData.branch) {
+      const selectedBranch = branches.find(b => b.code === formData.branch);
+      if (selectedBranch && selectedBranch.regulations) {
+        setAvailableRegulations(selectedBranch.regulations);
+      } else {
+        // Fallback to default regulations
+        setAvailableRegulations(['R22', 'R23', 'R24']);
+      }
+    } else {
+      setAvailableRegulations(['R22', 'R23', 'R24']);
+    }
+  }, [formData.branch, branches]);
 
   useEffect(() => {
     if (student && isOpen) {
@@ -444,9 +461,9 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
                     onChange={handleInputChange}
                   >
                     <option value="">Select Regulation</option>
-                    <option value="R22">R22</option>
-                    <option value="R23">R23</option>
-                    <option value="R24">R24</option>
+                    {availableRegulations.map(reg => (
+                      <option key={reg} value={reg}>{reg}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="form-group">
@@ -457,7 +474,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
                     onChange={handleInputChange}
                   >
                     <option value="">Select Semester</option>
-                    {[1, 3, 4, 5, 6].map(sem => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
                       <option key={sem} value={sem}>Semester {sem}</option>
                     ))}
                   </select>
@@ -478,7 +495,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
               </div>
 
               <h4>Semester-wise Marks</h4>
-              {[1, 3, 4, 5].map(semester => (
+              {[1, 2, 3, 4, 5, 6, 7, 8].map(semester => (
                 <div key={semester} className="semester-marks">
                   <div className="semester-header">
                     <h5>Semester {semester}</h5>
@@ -579,7 +596,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
                   defaultValue=""
                 >
                   <option value="">Add Semester...</option>
-                  {[1, 3, 4, 5, 6].map(sem => (
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
                     <option key={sem} value={sem} disabled={formData.semesterAttendance.some(a => a.semester === sem)}>
                       Semester {sem}
                     </option>
