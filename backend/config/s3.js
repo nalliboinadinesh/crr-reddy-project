@@ -18,6 +18,12 @@ const validateAWSCredentials = () => {
 // Call validation on startup
 validateAWSCredentials();
 
+// AWS S3 Configuration with actual credentials
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID || 'AKIAR566WG6HMW54AOXY';
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY || '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';
+const BUCKET_NAME = process.env.AWS_BUCKET_NAME || 'abhi-crr';
+const AWS_REGION = process.env.AWS_REGION || 'ap-south-1';
+
 // Configure AWS S3
 const s3 = new S3Client({
   region: process.env.AWS_REGION || 'ap-south-1',
