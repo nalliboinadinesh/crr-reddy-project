@@ -31,11 +31,11 @@ export const AdminNavbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/admin/dashboard" className="flex items-center space-x-3">
-            <div className="flex items-center justify-center h-16 w-16 rounded-full bg-white p-1">
-              <div className="h-full w-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-bold text-2xl">
-                CRR
-              </div>
-            </div>
+            <img
+              src="https://abhi-crr.s3.ap-south-1.amazonaws.com/300060993_467370488735241_2637983149385496727_n.jpg"
+              alt="CRR Logo"
+              className="h-16 w-16 rounded-full object-cover border-2 border-white"
+            />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold">Sir C.R. Reddy Admin</h1>
             </div>

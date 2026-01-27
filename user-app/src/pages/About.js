@@ -64,6 +64,9 @@ const About = () => {
       <div className="bg-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
+            <div className="flex justify-center mb-4">
+              <img src="https://abhi-crr.s3.ap-south-1.amazonaws.com/300060993_467370488735241_2637983149385496727_n.jpg" alt="CRR Logo" className="h-24 w-24 rounded-full object-cover border-4 border-blue-600 shadow-lg" />
+            </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">🌟 Sir C.R. Reddy Polytechnic College</h1>
             <p className="text-lg text-gray-600 mb-6">Excellence in Technical Education</p>
             

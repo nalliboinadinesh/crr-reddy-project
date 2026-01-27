@@ -166,9 +166,12 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Welcome back! Manage your college system here.</p>
+        <div className="mb-8 flex items-center gap-6">
+          <img src="https://abhi-crr.s3.ap-south-1.amazonaws.com/300060993_467370488735241_2637983149385496727_n.jpg" alt="CRR Logo" className="h-20 w-20 rounded-full object-cover border-4 border-blue-600 shadow-lg" />
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+            <p className="text-gray-600">Welcome back! Manage your college system here.</p>
+          </div>
         </div>
 
         {/* Global Student Search */}
