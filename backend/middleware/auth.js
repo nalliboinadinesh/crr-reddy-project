@@ -4,7 +4,13 @@ const logger = require('../config/logger');
 
 const authMiddleware = (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(' ')[1];
+    // Try to get token from Authorization header first
+    let token = req.headers.authorization?.split(' ')[1];
+    
+    // If not in header, try to get from cookies
+    if (!token && req.cookies) {
+      token = req.cookies.adminToken;
+    }
     
     if (!token) {
       return res.status(401).json({ message: 'No token provided' });
@@ -26,7 +32,13 @@ const authMiddleware = (req, res, next) => {
 
 const optionalAuthMiddleware = (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(' ')[1];
+    // Try to get token from Authorization header first
+    let token = req.headers.authorization?.split(' ')[1];
+    
+    // If not in header, try to get from cookies
+    if (!token && req.cookies) {
+      token = req.cookies.adminToken;
+    }
     
     if (token) {
       const decoded = jwt.verify(token, config.JWT_SECRET);

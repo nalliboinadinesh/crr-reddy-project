@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const logger = require('./config/logger');
 
 // Import services and entity routes
@@ -45,6 +46,7 @@ app.use(cors(corsOptions));
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
 app.use(express.json());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(cookieParser());
 
 // Database Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/polytechnic-sis')

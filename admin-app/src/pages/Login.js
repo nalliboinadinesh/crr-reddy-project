@@ -49,6 +49,12 @@ const Login = () => {
         token: tokens.accessToken
       }));
 
+      // Store JWT token in cookie with 1-day expiration
+      const expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + (24 * 60 * 60 * 1000)); // 24 hours
+      const cookieString = `adminToken=${tokens.accessToken}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Strict`;
+      document.cookie = cookieString;
+
       localStorage.setItem('adminRefreshToken', tokens.refreshToken);
       navigate('/admin/dashboard');
     } catch (error) {

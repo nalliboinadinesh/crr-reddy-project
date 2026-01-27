@@ -44,14 +44,16 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
   useEffect(() => {
     if (formData.branch) {
       const selectedBranch = branches.find(b => b.code === formData.branch);
-      if (selectedBranch && selectedBranch.regulations) {
+      if (selectedBranch && selectedBranch.regulations && Array.isArray(selectedBranch.regulations)) {
+        // Only show regulations for the selected branch
         setAvailableRegulations(selectedBranch.regulations);
       } else {
-        // Fallback to default regulations
-        setAvailableRegulations(['R22', 'R23', 'R24']);
+        // If no regulations found for branch, show empty
+        setAvailableRegulations([]);
       }
     } else {
-      setAvailableRegulations(['R22', 'R23', 'R24']);
+      // Clear regulations if no branch selected
+      setAvailableRegulations([]);
     }
   }, [formData.branch, branches]);
 
