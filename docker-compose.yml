@@ -42,7 +42,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_BUCKET_NAME: ${AWS_BUCKET_NAME:-abhi-crr}
       AWS_REGION: ${AWS_REGION:-ap-south-1}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3001}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,http://127.0.0.1:3001,http://13.233.148.165:3000,http://13.233.148.165:3001}
       LOG_LEVEL: ${LOG_LEVEL:-info}
     depends_on:
       mongodb:
