@@ -120,7 +120,7 @@ const QuestionPapers = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               >
                 <option value="">All Semesters</option>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
+                {[1, 3, 4, 5, 6].map((sem) => (
                   <option key={sem} value={sem}>Semester {sem}</option>
                 ))}
               </select>

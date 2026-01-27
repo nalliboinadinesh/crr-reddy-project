@@ -457,7 +457,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
                     onChange={handleInputChange}
                   >
                     <option value="">Select Semester</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
+                    {[1, 3, 4, 5, 6].map(sem => (
                       <option key={sem} value={sem}>Semester {sem}</option>
                     ))}
                   </select>
@@ -478,7 +478,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
               </div>
 
               <h4>Semester-wise Marks</h4>
-              {[1, 2, 3, 4].map(semester => (
+              {[1, 3, 4, 5].map(semester => (
                 <div key={semester} className="semester-marks">
                   <div className="semester-header">
                     <h5>Semester {semester}</h5>
@@ -579,7 +579,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
                   defaultValue=""
                 >
                   <option value="">Add Semester...</option>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
+                  {[1, 3, 4, 5, 6].map(sem => (
                     <option key={sem} value={sem} disabled={formData.semesterAttendance.some(a => a.semester === sem)}>
                       Semester {sem}
                     </option>

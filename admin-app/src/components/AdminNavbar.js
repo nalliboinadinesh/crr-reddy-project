@@ -32,11 +32,9 @@ export const AdminNavbar = () => {
           {/* Logo */}
           <Link to="/admin/dashboard" className="flex items-center space-x-3">
             <div className="flex items-center justify-center h-16 w-16 rounded-full bg-white p-1">
-              <img 
-                src="https://abhi-crr.s3.ap-south-1.amazonaws.com/300060993_467370488735241_2637983149385496727_n.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAR566WG6HEAROKAIP%2F20260125%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20260125T104321Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCmFwLXNvdXRoLTEiSDBGAiEA6RN1tqU44VMj2jZPg3WvpHiYI7C9y1WOxlnRtCJWfP0CIQCr3B8r%2FJdYIB37ddOTk%2BTBSqn59%2BRxKHpES66pWpDM7irbAggkEAAaDDEzMzA3NDEzOTAyMiIMIX36rohArqr78XY7KrgCDTdbcENHeZnqOGQEgKB3M5W4n96KNCdjxTxBaZ8hwpkxZZj6K3fpVv8wWF2t8lwu80NIfiHMgUA9OATaYtPkXw6sbcQ0SL7VPkezIkAWLws5aV2eGoms9g8y7jkQMPFf%2FznLDSL41h1nCKV4snmZcolCxmIQn29OPTdOSkEGGxvJWXTlW%2BPvTP5C2qEIHmKxBLYm91QrYwqycFAJGwekfCc7VegS%2FAj1Va%2BUYh0n4CV9SAmQ42Nqnhx%2BFMhgXAjthWXobSr%2Br3gl3RgViAg4c3y5J%2FXfpN3UhBGxZ4b1jvPKm3MpFRq1o3HczWvgyPFTmIOfQo2LVfBjA0ge6kJgTu9HRwAxbpmmbDca4kjlW3i3H94lvBhS3WrsvKwtUq1n7Diar2TkNd5gaLwL9930gYiQLcdkrHgAMIe41ssGOqwCBkE8sxWfIs7Ntj9g4G9%2FMkjKLWC3%2BqU9UOWsGtEpudGDPN9%2B%2FdGA6MFOqXd539%2FcvN0e88jw7YiwZ3H82%2FsQ9XAfyrTxrhjT4ieWWg6XnzJ31KYVFnKaCVe8T4fajm9j0L10KgMiF45rALxeO6AlOKze2CdB8r%2FuG7tT6VbzqdmaVCh5bg6fDhe5dU22HCXSSYvv1099GNm%2Fk49NP57Ju2rFhO68NYNWx9WQ6hWpH859MUtpZMxYjSSQllpHdF7oMH5kzhsKYbIrFHeRcwIYDZOJNg7E5esf0hrYsPJHoRHClB1ntXASHQexDki9q98JsnNHJznqRqJClqjEVsGGcoT45iBbuqjhydGfx9ydVMVouO6mIPJKhUwmSpx907PMgEiSSJp0Z%2F0Q8cGI&X-Amz-Signature=f7f25d052502727bb7f09115da00874545d15a978e09b2d2c0d30a9010fc81b4&X-Amz-SignedHeaders=host&response-content-disposition=inline" 
-                alt="College Logo" 
-                className="h-full w-full object-cover rounded-full"
-              />
+              <div className="h-full w-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                CRR
+              </div>
             </div>
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold">Sir C.R. Reddy Admin</h1>

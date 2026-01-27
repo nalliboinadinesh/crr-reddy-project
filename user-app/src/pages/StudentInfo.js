@@ -179,7 +179,7 @@ const StudentInfo = ({ onClose }) => {
               
               {/* Semesters Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
+                {[1, 3, 4, 5, 6].map((sem) => (
                   <div key={sem} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                     <div className="flex items-center justify-between mb-3">
                       <h4 className="font-semibold text-gray-800">Semester {sem}</h4>
@@ -218,7 +218,7 @@ const StudentInfo = ({ onClose }) => {
             <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
               <h3 className="text-lg font-bold text-blue-600 mb-6">Semester-wise Marks</h3>
 
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
+              {[1, 3, 4, 5, 6].map((sem) => (
                 <div key={sem} className="mb-8">
                   <div className="flex justify-between items-center mb-4">
                     <h4 className="font-semibold text-gray-800 text-lg">Semester {sem}</h4>
