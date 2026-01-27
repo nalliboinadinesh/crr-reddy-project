@@ -10,28 +10,18 @@ const AWS_REGION = 'ap-south-1';
 
 // Configure AWS S3
 const s3 = new S3Client({
-  region: process.env.AWS_REGION || 'ap-south-1',
+  region: AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY
   }
 });
-
-const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 
 // Upload file to S3
 const uploadFileToS3 = async (fileBuffer, fileName, mimeType) => {
   try {
     if (!BUCKET_NAME) {
-      throw new Error('AWS_BUCKET_NAME not configured. Please set AWS_BUCKET_NAME environment variable.');
-    }
-
-    if (!process.env.AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID === 'your-aws-access-key-id') {
-      throw new Error('AWS_ACCESS_KEY_ID not configured. Please set valid AWS credentials.');
-    }
-
-    if (!process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY === 'your-aws-secret-access-key') {
-      throw new Error('AWS_SECRET_ACCESS_KEY not configured. Please set valid AWS credentials.');
+      throw new Error('AWS_BUCKET_NAME not configured.');
     }
 
     const upload = new Upload({
@@ -46,7 +36,7 @@ const uploadFileToS3 = async (fileBuffer, fileName, mimeType) => {
     });
 
     const result = await upload.done();
-    const location = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION || 'ap-south-1'}.amazonaws.com/${result.Key}`;
+    const location = `https://${BUCKET_NAME}.s3.${AWS_REGION}.amazonaws.com/${result.Key}`;
     logger.info(`File uploaded to S3: ${location}`);
     return location;
   } catch (error) {
@@ -59,15 +49,7 @@ const uploadFileToS3 = async (fileBuffer, fileName, mimeType) => {
 const uploadImageToS3 = async (file, keyPath) => {
   try {
     if (!BUCKET_NAME) {
-      throw new Error('AWS_BUCKET_NAME not configured. Please set AWS_BUCKET_NAME environment variable.');
-    }
-
-    if (!process.env.AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID === 'your-aws-access-key-id') {
-      throw new Error('AWS_ACCESS_KEY_ID not configured. Please set valid AWS credentials.');
-    }
-
-    if (!process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY === 'your-aws-secret-access-key') {
-      throw new Error('AWS_SECRET_ACCESS_KEY not configured. Please set valid AWS credentials.');
+      throw new Error('AWS_BUCKET_NAME not configured.');
     }
 
     // Handle both multer file object and buffer
@@ -87,7 +69,7 @@ const uploadImageToS3 = async (file, keyPath) => {
     });
 
     const result = await upload.done();
-    const location = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION || 'ap-south-1'}.amazonaws.com/${result.Key}`;
+    const location = `https://${BUCKET_NAME}.s3.${AWS_REGION}.amazonaws.com/${result.Key}`;
     logger.info(`Image uploaded to S3: ${location}`);
     return location;
   } catch (error) {
