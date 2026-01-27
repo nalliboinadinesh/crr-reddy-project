@@ -9,6 +9,7 @@ import Notes from './pages/Notes';
 import QuestionPapers from './pages/QuestionPapers';
 import Announcements from './pages/Announcements';
 import About from './pages/About';
+import Login from './pages/Login';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Navbar />
           <main className="flex-grow">
             <Routes>
+              <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />
               <Route path="/notes" element={<Notes />} />
               <Route path="/question-papers" element={<QuestionPapers />} />

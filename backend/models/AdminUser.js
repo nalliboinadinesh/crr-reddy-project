@@ -38,6 +38,14 @@ const adminUserSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  otpCode: {
+    type: String,
+    default: null
+  },
+  otpExpiry: {
+    type: Date,
+    default: null
+  },
   lastLogin: Date,
   createdAt: {
     type: Date,

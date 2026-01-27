@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser, setError } from '../redux/authSlice';
-import { authAPI } from '../services/api';
 import { FiLogIn, FiMail } from 'react-icons/fi';
+import { authClient } from '../api/authClient';
 
 const Login = () => {
   const [step, setStep] = useState('email'); // 'email' or 'otp'
@@ -13,7 +11,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSendOTP = async (e) => {
     e.preventDefault();
@@ -22,13 +19,12 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await authAPI.sendOTP(email);
-      setMessage(response.data.message);
+      const response = await authClient.sendOTP(email);
+      setMessage(response.message);
       setStep('otp');
     } catch (error) {
-      const message = error.response?.data?.message || 'Failed to send OTP. Please try again.';
+      const message = error.message || 'Failed to send OTP. Please try again.';
       setErrorMsg(message);
-      dispatch(setError(message));
     } finally {
       setLoading(false);
     }
@@ -41,20 +37,11 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await authAPI.verifyOTP(email, otp);
-      const { tokens, user } = response.data;
-
-      dispatch(setUser({
-        user,
-        token: tokens.accessToken
-      }));
-
-      localStorage.setItem('adminRefreshToken', tokens.refreshToken);
-      navigate('/admin/dashboard');
+      const response = await authClient.verifyOTP(email, otp);
+      navigate('/');
     } catch (error) {
-      const message = error.response?.data?.message || 'OTP verification failed. Please try again.';
+      const message = error.message || 'OTP verification failed. Please try again.';
       setErrorMsg(message);
-      dispatch(setError(message));
     } finally {
       setLoading(false);
     }
@@ -68,7 +55,7 @@ const Login = () => {
             <div className="flex items-center justify-center h-16 w-16 rounded-full bg-blue-600 text-white mx-auto mb-4">
               <FiLogIn size={32} />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Panel</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Student Portal</h1>
             <p className="text-gray-600">Polytechnic College SIS</p>
           </div>
 
