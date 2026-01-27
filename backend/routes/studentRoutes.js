@@ -95,7 +95,7 @@ router.post('/', authMiddleware, uploadSingle, async (req, res) => {
     if (typeof studentData.attendance === 'string') {
       studentData.attendance = JSON.parse(studentData.attendance);
     }
-    if (typeof studentData.feeStatus === 'string') {
+    if (studentData.feeStatus && typeof studentData.feeStatus === 'string') {
       studentData.feeStatus = JSON.parse(studentData.feeStatus);
     }
     
@@ -148,7 +148,7 @@ router.put('/:id', authMiddleware, uploadSingle, async (req, res) => {
     if (typeof updateData.attendance === 'string') {
       updateData.attendance = JSON.parse(updateData.attendance);
     }
-    if (typeof updateData.feeStatus === 'string') {
+    if (updateData.feeStatus && typeof updateData.feeStatus === 'string') {
       updateData.feeStatus = JSON.parse(updateData.feeStatus);
     }
     

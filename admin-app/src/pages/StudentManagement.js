@@ -65,7 +65,6 @@ const StudentManagement = () => {
       submitData.append('personalInfo', JSON.stringify(formDataObj.personalInfo));
       submitData.append('academicInfo', JSON.stringify(formDataObj.academicInfo));
       submitData.append('attendance', JSON.stringify(formDataObj.attendance));
-      submitData.append('feeStatus', JSON.stringify(formDataObj.feeStatus));
       
       // Add profile picture file if present
       if (formDataObj.profilePictureFile) {

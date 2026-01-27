@@ -53,8 +53,7 @@ const createStudentSchema = Joi.object({
       address: Joi.object({})
     }).required(),
     academicInfo: Joi.object({}),
-    attendance: Joi.object({}),
-    feeStatus: Joi.object({})
+    attendance: Joi.object({})
   }).required(),
   query: Joi.object({}).required(),
   params: Joi.object({}).required()
