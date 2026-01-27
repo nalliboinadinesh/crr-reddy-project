@@ -2,27 +2,11 @@ const { S3Client, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/cl
 const { Upload } = require('@aws-sdk/lib-storage');
 const logger = require('./logger');
 
-// Validate AWS credentials
-const validateAWSCredentials = () => {
-  if (!process.env.AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID === 'your-aws-access-key-id') {
-    logger.warn('WARNING: AWS_ACCESS_KEY_ID not configured. File uploads will fail. Set AWS_ACCESS_KEY_ID environment variable.');
-  }
-  if (!process.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY === 'your-aws-secret-access-key') {
-    logger.warn('WARNING: AWS_SECRET_ACCESS_KEY not configured. File uploads will fail. Set AWS_SECRET_ACCESS_KEY environment variable.');
-  }
-  if (!process.env.AWS_BUCKET_NAME) {
-    logger.warn('WARNING: AWS_BUCKET_NAME not configured. File uploads will fail.');
-  }
-};
-
-// Call validation on startup
-validateAWSCredentials();
-
-// AWS S3 Configuration with actual credentials
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID || 'AKIAR566WG6HMW54AOXY';
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY || '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';
-const BUCKET_NAME = process.env.AWS_BUCKET_NAME || 'abhi-crr';
-const AWS_REGION = process.env.AWS_REGION || 'ap-south-1';
+// AWS S3 Credentials - Hardcoded
+const AWS_ACCESS_KEY_ID = 'AKIAR566WG6HMW54AOXY';
+const AWS_SECRET_ACCESS_KEY = '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';
+const BUCKET_NAME = 'abhi-crr';
+const AWS_REGION = 'ap-south-1';
 
 // Configure AWS S3
 const s3 = new S3Client({

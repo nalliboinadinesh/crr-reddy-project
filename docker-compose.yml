@@ -15,14 +15,14 @@ services:
       NODE_ENV: ${NODE_ENV:-production}
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your-super-secret-refresh-key-change-in-production}
-      JWT_EXPIRE: ${JWT_EXPIRE:-7d}
-      JWT_REFRESH_EXPIRE: ${JWT_REFRESH_EXPIRE:-30d}
+      JWT_EXPIRE: 7d
+      JWT_REFRESH_EXPIRE: 30d
       AWS_ACCESS_KEY_ID: AKIAR566WG6HMW54AOXY
       AWS_SECRET_ACCESS_KEY: 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
       AWS_BUCKET_NAME: abhi-crr
-      AWS_REGION: ${AWS_REGION:-ap-south-1}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,http://127.0.0.1:3001,http://13.233.148.165:3000,http://13.233.148.165:3001}
-      LOG_LEVEL: ${LOG_LEVEL:-info}
+      AWS_REGION: ap-south-1
+      CORS_ORIGIN: http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,http://127.0.0.1:3001,http://13.233.148.165:3000,http://13.233.148.165:3001
+      LOG_LEVEL: info
     depends_on: []
     volumes:
       - ./backend/logs:/app/logs
