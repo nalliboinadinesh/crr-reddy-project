@@ -224,34 +224,38 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
     form.append('pin', formData.pin);
     form.append('branch', formData.branch);
     form.append('academicYear', formData.academicYear);
-    form.append('personalInfo', JSON.stringify({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      dateOfBirth: formData.dateOfBirth,
-      gender: formData.gender,
-      email: formData.email,
-      phone: formData.phone,
+    // Always send valid JSON strings for these fields
+    const personalInfo = {
+      firstName: formData.firstName || '',
+      lastName: formData.lastName || '',
+      dateOfBirth: formData.dateOfBirth || '',
+      gender: formData.gender || '',
+      email: formData.email || '',
+      phone: formData.phone || '',
       address: {
-        street: formData.address,
-        city: formData.city,
-        state: formData.state,
-        postalCode: formData.pincode
+        street: formData.address || '',
+        city: formData.city || '',
+        state: formData.state || '',
+        postalCode: formData.pincode || ''
       }
-    }));
-    form.append('academicInfo', JSON.stringify({
-      regulation: formData.regulation,
+    };
+    const academicInfo = {
+      regulation: formData.regulation || '',
       currentSemester: parseInt(formData.currentSemester) || 1,
       cgpa: parseFloat(formData.cgpa) || 0,
-      semesterMarks: formData.semesterMarks.map(sem => ({
+      semesterMarks: (formData.semesterMarks || []).map(sem => ({
         semester: sem.semester,
         gpa: sem.gpa,
         marks: semesterSubjects[sem.semester] || []
       }))
-    }));
-    form.append('attendance', JSON.stringify({
+    };
+    const attendance = {
       overallAttendance: parseFloat(formData.overallAttendance) || 0,
-      semesterAttendance: formData.semesterAttendance
-    }));
+      semesterAttendance: formData.semesterAttendance || []
+    };
+    form.append('personalInfo', JSON.stringify(personalInfo));
+    form.append('academicInfo', JSON.stringify(academicInfo));
+    form.append('attendance', JSON.stringify(attendance));
     if (formData.profilePictureFile) {
       form.append('profilePictureFile', formData.profilePictureFile);
     }
