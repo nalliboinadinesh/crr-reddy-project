@@ -151,16 +151,30 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
     setFormData(prev => ({ ...prev, semesterAttendance: updated }));
   };
 
-  const handleFileUpload = async (e) => {
+  const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (!file) return;
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only image files are allowed');
+      return;
+    }
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image size must be less than 2MB');
+      return;
+    }
+    // Show preview
+    const reader = new FileReader();
+    reader.onload = (ev) => {
       setFormData(prev => ({
         ...prev,
         profilePictureFile: file,
-        profilePictureUrl: file.name
+        profilePictureUrl: ev.target.result
       }));
-      toast.success('Photo selected');
-    }
+    };
+    reader.readAsDataURL(file);
+    toast.success('Photo selected');
   };
 
   const handleSubmit = () => {
@@ -285,7 +299,16 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
               <h3>Personal Information</h3>
               
               <div className="photo-section">
-                <div className="photo-placeholder">No Photo</div>
+                {formData.profilePictureUrl ? (
+                  <img
+                    src={formData.profilePictureUrl}
+                    alt="Profile Preview"
+                    className="photo-placeholder"
+                    style={{ objectFit: 'cover', width: 100, height: 100 }}
+                  />
+                ) : (
+                  <div className="photo-placeholder">No Photo</div>
+                )}
                 <label className="upload-btn">
                   <FiUpload size={20} />
                   Upload Photo

@@ -19,10 +19,10 @@
   background: white;
   border-radius: 12px;
   width: 90%;
-  max-width: 1200px;
-  max-height: none;
-  min-height: auto;
-  overflow: visible;
+  max-width: 600px;
+  max-height: 80vh;
+  min-height: unset;
+  overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -104,10 +104,10 @@
 /* Modal Body */
 .modal-body {
   flex: 1;
-  overflow-y: visible;
+  overflow-y: auto;
   overflow-x: hidden;
   padding: 24px;
-  min-height: auto;
+  min-height: 0;
 }
 
 .tab-content {

@@ -102,11 +102,9 @@ router.post('/', authMiddleware, uploadSingle, async (req, res) => {
     // Upload profile picture if provided
     if (req.file) {
       try {
-        const imageUrl = await uploadImageToS3(
-          req.file.buffer,
-          req.file.originalname,
-          req.file.mimetype
-        );
+        // Always upload to profile/ folder in S3
+        const keyPath = `profile/${Date.now()}-${req.file.originalname}`;
+        const imageUrl = await uploadImageToS3(req.file, keyPath);
         if (!studentData.personalInfo) {
           studentData.personalInfo = {};
         }
