@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminNavbar from './components/AdminNavbar';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import About from './components/About';
 import StudentManagement from './pages/StudentManagement';
 import BranchManagement from './pages/BranchManagement';
 import BannerManagement from './pages/BannerManagement';
@@ -34,6 +35,7 @@ function App() {
                   <main className="flex-grow pt-16">
                     <Routes>
                       <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/about" element={<About />} />
                       <Route path="/students" element={<StudentManagement />} />
                       <Route path="/branches" element={<BranchManagement />} />
                       <Route path="/materials" element={<MaterialsManagement />} />

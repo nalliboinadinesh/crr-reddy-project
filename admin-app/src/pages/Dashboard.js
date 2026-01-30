@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import { studentAPI, branchAPI, carouselAPI } from '../services/api';
+import { studentAPI, branchAPI, carouselAPI, announcementAPI } from '../services/api';
 import { FiUsers, FiBook, FiFileText, FiBell, FiSearch } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
@@ -20,7 +21,21 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchDashboardData();
+    fetchAnnouncements();
+    // Optionally, set up polling or websockets for real-time updates
+    // const interval = setInterval(fetchAnnouncements, 10000);
+    // return () => clearInterval(interval);
   }, []);
+
+  const fetchAnnouncements = async () => {
+    try {
+      const res = await announcementAPI.getAll('', 1, 5); // Fetch latest 5 announcements
+      setStats((prev) => ({ ...prev, recentAnnouncements: res.data.announcements || [] }));
+    } catch (error) {
+      toast.error('Failed to fetch announcements');
+      console.error(error);
+    }
+  };
 
   const fetchDashboardData = async () => {
     try {
@@ -30,18 +45,14 @@ const Dashboard = () => {
         branchAPI.getAll()
       ]);
 
-      setStats({
+      setStats((prev) => ({
+        ...prev,
         totalStudents: students.data.pagination?.total || 0,
         totalBranches: branches.data.length || 0,
         totalMaterials: 45,
         totalPapers: 32,
-        recentAnnouncements: [
-          { id: 1, title: 'Semester Exam Notice', type: 'Exam', priority: 'High', date: '5 Jan' },
-          { id: 2, title: 'College Closure Holiday', type: 'Holiday', priority: 'Medium', date: '3 Jan' },
-          { id: 3, title: 'New Materials Uploaded', type: 'Academic', priority: 'Low', date: '2 Jan' }
-        ],
         branches: branches.data
-      });
+      }));
     } catch (error) {
       toast.error('Failed to fetch dashboard data');
       console.error(error);
@@ -294,22 +305,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Branch-wise Distribution */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Branch-wise Student Distribution</h2>
-          <div className="flex flex-wrap gap-4">
-            {stats.branches.map((branch) => (
-              <div
-                key={branch._id}
-                className="px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg"
-              >
-                <p className="text-sm font-semibold text-blue-900">
-                  {branch.code}: <span className="text-blue-600">12 students</span>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );
