@@ -85,18 +85,18 @@ router.post('/', authMiddleware, uploadSingle, async (req, res) => {
   try {
     const studentData = { ...req.body };
     
-    // Parse JSON fields if they come as strings
-    if (typeof studentData.personalInfo === 'string') {
-      studentData.personalInfo = JSON.parse(studentData.personalInfo);
+    // Parse JSON fields if they come as non-empty strings
+    if (typeof studentData.personalInfo === 'string' && studentData.personalInfo) {
+      try { studentData.personalInfo = JSON.parse(studentData.personalInfo); } catch (e) { studentData.personalInfo = {}; }
     }
-    if (typeof studentData.academicInfo === 'string') {
-      studentData.academicInfo = JSON.parse(studentData.academicInfo);
+    if (typeof studentData.academicInfo === 'string' && studentData.academicInfo) {
+      try { studentData.academicInfo = JSON.parse(studentData.academicInfo); } catch (e) { studentData.academicInfo = {}; }
     }
-    if (typeof studentData.attendance === 'string') {
-      studentData.attendance = JSON.parse(studentData.attendance);
+    if (typeof studentData.attendance === 'string' && studentData.attendance) {
+      try { studentData.attendance = JSON.parse(studentData.attendance); } catch (e) { studentData.attendance = {}; }
     }
-    if (studentData.feeStatus && typeof studentData.feeStatus === 'string') {
-      studentData.feeStatus = JSON.parse(studentData.feeStatus);
+    if (studentData.feeStatus && typeof studentData.feeStatus === 'string' && studentData.feeStatus) {
+      try { studentData.feeStatus = JSON.parse(studentData.feeStatus); } catch (e) { studentData.feeStatus = {}; }
     }
     
     // Upload profile picture if provided
