@@ -302,28 +302,7 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
             <div className="tab-content">
               <h3>Personal Information</h3>
               
-              <div className="photo-section">
-                {formData.profilePictureUrl ? (
-                  <img
-                    src={formData.profilePictureUrl}
-                    alt="Profile Preview"
-                    className="photo-placeholder"
-                    style={{ objectFit: 'cover', width: 100, height: 100 }}
-                  />
-                ) : (
-                  <div className="photo-placeholder">No Photo</div>
-                )}
-                <label className="upload-btn">
-                  <FiUpload size={20} />
-                  Upload Photo
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    style={{ display: 'none' }}
-                  />
-                </label>
-              </div>
+              {/* Photo upload removed as requested */}
 
               <div className="form-grid">
                 <div className="form-group">

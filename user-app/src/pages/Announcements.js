@@ -166,7 +166,7 @@ const Announcements = () => {
                   <p className="text-gray-700 mb-3 line-clamp-3">{announcement.content}</p>
 
                   <div className="flex items-center justify-between text-sm text-gray-600">
-                    <span>Views: {announcement.viewCount}</span>
+                    {/* Views removed as requested */}
                     {announcement.attachments && announcement.attachments.length > 0 && (
                       <span>📎 {announcement.attachments.length} attachment{announcement.attachments.length > 1 ? 's' : ''}</span>
                     )}
