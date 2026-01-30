@@ -152,6 +152,17 @@ const Announcements = () => {
                     </div>
                   </div>
 
+                  {/* Image Preview */}
+                  {announcement.attachments && announcement.attachments.length > 0 && announcement.attachments[0].url && (
+                    <div className="mb-3">
+                      <img
+                        src={announcement.attachments[0].url}
+                        alt="Announcement Preview"
+                        className="max-h-64 rounded-lg border border-gray-200 shadow mb-2"
+                        style={{ objectFit: 'cover', width: '100%' }}
+                      />
+                    </div>
+                  )}
                   <p className="text-gray-700 mb-3 line-clamp-3">{announcement.content}</p>
 
                   <div className="flex items-center justify-between text-sm text-gray-600">
