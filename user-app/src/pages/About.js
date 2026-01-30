@@ -131,7 +131,7 @@ const About = () => {
             </div>
             <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg overflow-hidden h-96">
               <img
-                src="https://via.placeholder.com/500x400/3B82F6/1E40AF?text=SCRR+Campus"
+                src="https://abhi-crr.s3.ap-south-1.amazonaws.com/c-r-reddy-polytechnic-college-west-godavari-polytechnic-colleges-9iwgbyhfq3.avif"
                 alt="College Campus"
                 className="w-full h-full object-cover"
               />
