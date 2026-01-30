@@ -219,43 +219,43 @@ const StudentModal = ({ isOpen, onClose, onSubmit, student = null, branches = []
       return;
     }
 
-    const submitData = {
-      pin: formData.pin,
-      branch: formData.branch,
-      academicYear: formData.academicYear,
-      personalInfo: {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        dateOfBirth: formData.dateOfBirth,
-        gender: formData.gender,
-        email: formData.email,
-        phone: formData.phone,
-        address: {
-          street: formData.address,
-          city: formData.city,
-          state: formData.state,
-          postalCode: formData.pincode
-        },
-        profilePictureUrl: formData.profilePictureUrl
-      },
-      academicInfo: {
-        regulation: formData.regulation,
-        currentSemester: parseInt(formData.currentSemester) || 1,
-        cgpa: parseFloat(formData.cgpa) || 0,
-        semesterMarks: formData.semesterMarks.map(sem => ({
-          semester: sem.semester,
-          gpa: sem.gpa,
-          marks: semesterSubjects[sem.semester] || []
-        }))
-      },
-      attendance: {
-        overallAttendance: parseFloat(formData.overallAttendance) || 0,
-        semesterAttendance: formData.semesterAttendance
-      },
-      profilePictureFile: formData.profilePictureFile
-    };
-
-    onSubmit(submitData);
+    // Prepare FormData for file upload
+    const form = new FormData();
+    form.append('pin', formData.pin);
+    form.append('branch', formData.branch);
+    form.append('academicYear', formData.academicYear);
+    form.append('personalInfo', JSON.stringify({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      dateOfBirth: formData.dateOfBirth,
+      gender: formData.gender,
+      email: formData.email,
+      phone: formData.phone,
+      address: {
+        street: formData.address,
+        city: formData.city,
+        state: formData.state,
+        postalCode: formData.pincode
+      }
+    }));
+    form.append('academicInfo', JSON.stringify({
+      regulation: formData.regulation,
+      currentSemester: parseInt(formData.currentSemester) || 1,
+      cgpa: parseFloat(formData.cgpa) || 0,
+      semesterMarks: formData.semesterMarks.map(sem => ({
+        semester: sem.semester,
+        gpa: sem.gpa,
+        marks: semesterSubjects[sem.semester] || []
+      }))
+    }));
+    form.append('attendance', JSON.stringify({
+      overallAttendance: parseFloat(formData.overallAttendance) || 0,
+      semesterAttendance: formData.semesterAttendance
+    }));
+    if (formData.profilePictureFile) {
+      form.append('profilePictureFile', formData.profilePictureFile);
+    }
+    onSubmit(form);
   };
 
   if (!isOpen) return null;
